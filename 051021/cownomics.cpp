@@ -1,0 +1,105 @@
+// C++ Template Code is tested for compability with: C++11 or above
+// Repo: https://github.com/KozerG17/ST4-Snippets/blob/main/cpp.cpp
+
+#include <bits/stdc++.h>
+#ifndef LBM_LOCAL
+#define debug(x...) 17
+#endif
+
+// libraries
+using namespace std;
+namespace {
+	// macros
+	#define fi first
+	#define se second
+	#define all(a)  (a).begin(),  (a).end()
+	#define rall(a) (a).rbegin(), (a).rend()
+	#define For(i, u, v) for (int i = (u), _n_ = (v); i < _n_; i++)
+	#define Rof(i, u, v) for (int i = (u), _n_ = (v); --i >= _n_; )
+
+	// typedefs
+	using str  = string;            using ll  = long long;
+	using chr  = char;              using ld  = long double;
+	using pii  = pair<int, int>;    using pll = pair<ll, ll>;
+	using uint = unsigned int;      using ull = unsigned long long;
+	template<class T> using MaxHeap = priority_queue<T, vector<T>, less<T>>;
+	template<class T> using MinHeap = priority_queue<T, vector<T>, greater<T>>;
+
+	// functions
+	template<class A, class B> bool Maxz(A &a, B b) { return a < b && (a = b, true); }
+	template<class A, class B> bool Minz(A &a, B b) { return b < a && (a = b, true); }
+	mt19937_64 Rng(chrono::steady_clock::now().time_since_epoch().count());
+	ll Rand(ll a, ll b) { return uniform_int_distribution<ll>(a, b)(Rng); }
+
+	// constants
+	constexpr ld  pi  = acos(-1),      eps = 1e-7;
+	constexpr ll  md  = 1e9 + 1617,    mod = 1e9 + 7;
+	constexpr ll  e30 = 1ll << 30,     e60 = 1ll << 60;
+
+	// devices
+	class Reader {
+	public:
+		template<class T> static T getData() {
+			T x; return cin >> x, x;
+		} template<class T> Reader &operator,(T &x) {
+			return ok &= !!(cin >> x), *this;
+		} bool ok = true; operator bool() { return ok; }
+	private:
+		#define Read Reader(),
+		#define Gint Reader::getData<ll>()
+		#define Gstr Reader::getData<str>()
+	};
+} // custom standard namespace
+
+
+
+/* -----------------[ MAIN CODE GOES HERE ]----------------- */
+const short luv = 17 * 83;
+
+int main() {
+	cin.tie(nullptr) -> sync_with_stdio(false);
+	freopen("cownomics.in", "r", stdin);
+	freopen("cownomics.out", "w", stdout);
+	
+	int n, m; Read n, m;
+
+	vector<str> a(n), b(n);
+	for (str &x : a) Read x;
+	for (str &x : b) Read x;
+
+	int ans = 0;
+	For (j, 0, m) {
+		set<char> u, v;
+		For (i, 0, n) u.insert(a[i][j]);
+		For (i, 0, n) v.insert(b[i][j]);
+
+		bool ok = true;
+		for (char c : {'A', 'C', 'G', 'T'}) {
+			int f1 = u.find(c) != u.end();
+			int f2 = v.find(c) != v.end();
+			ok &= f1 + f2 != 2;
+		}
+		ans += ok;
+	}
+	cout << ans;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------                    |\__/,|   (`\
+// | author: dlbm1302 | created: 05.10.2021 |                  _.|o o  |_   ) )
+// -----------------------------------------------------------(((---(((------------
