@@ -1,6 +1,6 @@
 /**
  *    author:  Dao Le Bao Minh
- *    created: 27.10.2021 08:48:23  
+ *    created: 28.10.2021 07:31:20  
 **/
 
 #include <bits/stdc++.h>
@@ -27,39 +27,24 @@ const ll e30 = 1ll << 30,      e60 = 1ll << 60;
 
 
 /* -----------------[ MAIN CODE GOES HERE ]----------------- */
-const int N = 21;
+const int N = 2e5 + 5;
 
-ll n, k, p[N];
-ll index;
-
-ll a[N], b, c[N], cnt = 0;
-void quaylui(int pos, int crr) {
-	if (pos == k + 1) {
-		bool ok = true; cnt++;
-		For (i, 1, k + 1) {
-			ok &= c[i] == p[i];
-		}
-		if (ok) b = cnt;
-		if (cnt == index) {
-			For (i, 1, k + 1)
-				a[i] = c[i];
-		}
-		return;
-	}
-
-	For (val, crr, pos + n - k + 1) {
-		c[pos] = val;
-		quaylui(pos + 1, val + 1);
-	}
-}
+ll n, k, a[N];
 
 int main() {
 	cin.tie(nullptr) -> sync_with_stdio(false);
+	// freopen("medianmax.INP", "r", stdin);
+	// freopen("medianmax.OUT", "w", stdout);
 	
 	cin >> n >> k;
-	For (i, 1, k + 1) cin >> p[i];
-	cin >> index;
+	For (i, 0, n) cin >> a[i];
+	sort(a, a + n);
 
-	quaylui(1, 1); cout << b << '\n';
-	For (i, 1, k + 1) cout << a[i] << ' ';
+	ll med = a[(n-1)/2], cnt = 1;
+	For (i, (n+1)/2, n) {
+		if (k < (a[i] - med)*cnt) break;
+		k -= (a[i] - med)*cnt++; med = a[i];
+	}
+
+	cout << med + k/cnt;
 }
