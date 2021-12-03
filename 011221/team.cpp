@@ -34,6 +34,8 @@ set<pii> sa, sb;
 
 int main() {
 	cin.tie(nullptr) -> sync_with_stdio(false);
+	// freopen("team.INP", "r", stdin);
+	// freopen("team.OUT", "w", stdout);
 	
 	cin >> n;
 	For (i, 0, n) {

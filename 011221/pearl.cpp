@@ -27,12 +27,28 @@ const ll e30 = 1ll << 30,      e60 = 1ll << 60;
 
 
 /* -----------------[ MAIN CODE GOES HERE ]----------------- */
+namespace {
+	using ll = long long;
+	mt19937_64 Rng(chrono::steady_clock::now().time_since_epoch().count());
+	static const ll FIXED_RANDOM = Rng();
+	ll Rand(ll a, ll b) { return uniform_int_distribution<ll>(a, b)(Rng); }
+} // random number generators
+struct custom_hash {
+	static uint64_t _splitmix64_(uint64_t x) {
+		x += 0x9e3779b97f4a7c15; x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+		x = (x ^ (x >> 27)) * 0x94d049bb133111eb; return x ^ (x >> 31);
+	}
+	size_t operator()(uint64_t x) const { return _splitmix64_(x + FIXED_RANDOM); }
+}; // custom_hash
+
 const int N = 5e5;
 
 int n, a[N];
 
 int main() {
 	cin.tie(nullptr) -> sync_with_stdio(false);
+	// freopen("pearl.INP", "r", stdin);
+	// freopen("pearl.OUT", "w", stdout);
 	
 	cin >> n;
 	For (i, 0, n) cin >> a[i];
@@ -45,17 +61,15 @@ int main() {
 				dq.push_back(n/i);
 		}
 
+	cout << dq.size() << '\n';
 	for (int i : dq) {
-		cout << i << ' ';
-
-		int ans = n; set<int> st;
-		for (int j = 0; j < n; j++) {
-			st.insert(a[j]);
-			if ((j+1)%i == 0) {
+		int ans = n, cnt = i;
+		unordered_set<int, custom_hash> st;
+		for (int j = 0; j < n; j++)
+			if (st.insert(a[j]); --cnt == 0) {
 				ans = min(ans, (int)st.size());
-				st.clear();
+				st.clear(); cnt = i;
 			}
-		}
-		cout << ans << '\n';
+		cout << i << ' ' << ans << '\n';
 	}
 }

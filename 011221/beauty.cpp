@@ -33,6 +33,8 @@ ll n, a[N];
 
 int main() {
 	cin.tie(nullptr) -> sync_with_stdio(false);
+	// freopen("beauty.INP", "r", stdin);
+	// freopen("beauty.OUT", "w", stdout);
 	
 	cin >> n;
 	For (i, 1, n + 1) cin >> a[i];
